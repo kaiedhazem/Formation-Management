@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 
 	@Entity
 	@Table(uniqueConstraints = { 
-				@UniqueConstraint(columnNames = "username"),
 				@UniqueConstraint(columnNames = "email") 
 			})
 	public class User implements Serializable {
