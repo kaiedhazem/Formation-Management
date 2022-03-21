@@ -27,6 +27,7 @@ import javax.validation.constraints.Size;
 		private Long code;
 		@NotBlank
 		@Size(max = 50)
+		private String username;
 		@Email
 		private String email;
 		@NotBlank
@@ -45,13 +46,27 @@ import javax.validation.constraints.Size;
 		}
         
 
-		public User(@NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 120) String password,
-				Set<Role> roles) {
+
+
+		public User(@NotBlank @Size(max = 50) @Email String username, @Email String email,
+				@NotBlank @Size(max = 120) String password, Set<Role> roles) {
 			super();
+			this.username = username;
 			this.email = email;
 			this.password = password;
 			this.roles = roles;
 		}
+
+
+		public User(@NotBlank @Size(max = 50) @Email String username, @Email String email,
+				@NotBlank @Size(max = 120) String password) {
+			super();
+			this.username = username;
+			this.email = email;
+			this.password = password;
+		}
+
+
 
 
 		public Long getCode() {
@@ -92,6 +107,23 @@ import javax.validation.constraints.Size;
 		public void setRoles(Set<Role> roles) {
 			this.roles = roles;
 		}
+
+
+
+
+		public String getUsername() {
+			return username;
+		}
+
+
+
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+
+		
 		
 		
 		
