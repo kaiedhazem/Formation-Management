@@ -22,4 +22,35 @@ public class Pays implements Serializable {
 	private String nom;
 	@OneToMany(mappedBy="pays")
 	private List<Participant> participants ;
+	public Pays() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Pays(@NotBlank @Size(max = 50) String nom) {
+		super();
+		this.nom = nom;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public List<Participant> getParticipants() {
+		return participants;
+	}
+	public void setParticipants(List<Participant> participants) {
+		this.participants = participants;
+	}
+	@Override
+	public String toString() {
+		return "Pays [id=" + id + ", nom=" + nom + ", participants=" + participants + "]";
+	}
+	
 }

@@ -6,5 +6,5 @@ import com.formation.FormationsManagement.Entities.Domaine;
 
 
 public interface DomaineRepository extends JpaRepository<Domaine, Long> {
-
+	boolean existsByLibelle(String libelle);
 }

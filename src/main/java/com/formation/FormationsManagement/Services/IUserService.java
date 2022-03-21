@@ -3,12 +3,13 @@ package com.formation.FormationsManagement.Services;
 import java.util.List;
 
 import com.formation.FormationsManagement.Entities.*;
+import com.formation.FormationsManagement.payload.Response.MessageResponse;
 
 public interface IUserService {
 
-	User saveUser(User user);
-	List<User> findAllUsers();
-	void deleteUser(Long id);
-	void addUser(User user);
-	
+	public MessageResponse save(User user);
+    public MessageResponse update(User user);
+    public MessageResponse delete(Long id);
+    public List<User> findAll();
+    public User  findByCode(Long code);
 }
