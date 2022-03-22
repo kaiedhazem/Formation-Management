@@ -3,12 +3,18 @@ package com.formation.FormationsManagement.Entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Domaine implements Serializable {
@@ -17,8 +23,10 @@ public class Domaine implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	private Long id;
-	@Column(unique = true,nullable = false)
+	@NotBlank
+	@Size(max = 50)
 	private String libelle;
+	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToMany(mappedBy="domaine")
 	private List<Formation> formations ;
 	public Domaine() {
@@ -42,15 +50,14 @@ public class Domaine implements Serializable {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	public List<Formation> getFormations() {
-		return formations;
-	}
-	public void setFormations(List<Formation> formations) {
-		this.formations = formations;
-	}
+
+	/*
+	 * public List<Formation> getFormations() { return formations; } public void
+	 * setFormations(List<Formation> formations) { this.formations = formations; }
+	 */
 	@Override
 	public String toString() {
-		return "Domaine [IdDomaine=" + id + ", libelle=" + libelle + ", formations=" + formations + "]";
+		return "Domaine [id =" + id + ", libelle=" + libelle + "]";
 	}
 	
 	

@@ -3,15 +3,20 @@ package com.formation.FormationsManagement.Entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Formation implements Serializable {
@@ -25,16 +30,17 @@ public class Formation implements Serializable {
 	@NotBlank
 	@Size(max = 50)
 	private String type;
-	@NotBlank
+	
 	private int annee;
-	@NotBlank
+	
 	private int nb_session;
-	@NotBlank
+	
 	private int duree;
-	@NotBlank
 	private double budget;
-	@ManyToOne
-	@MapsId("domaineId")
+	
+	//({"hibernateLazyInitializer", "handler"})
+    @ManyToOne()
+    @JoinColumn(name = "domaineId", nullable = false)
 	private Domaine domaine;
 	 @OneToMany(mappedBy="formation")
 	private List<Session> session ;
@@ -42,8 +48,11 @@ public class Formation implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Formation(@NotBlank @Size(max = 50) String titre, @NotBlank @Size(max = 50) String type, @NotBlank int annee,
-			@NotBlank int nb_session, @NotBlank int duree, @NotBlank double budget) {
+	
+
+
+	public Formation(@NotBlank @Size(max = 50) String titre, @NotBlank @Size(max = 50) String type, int annee,
+			int nb_session, int duree, double budget, Domaine domaine) {
 		super();
 		this.titre = titre;
 		this.type = type;
@@ -51,7 +60,11 @@ public class Formation implements Serializable {
 		this.nb_session = nb_session;
 		this.duree = duree;
 		this.budget = budget;
+		this.domaine = domaine;
 	}
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -100,17 +113,15 @@ public class Formation implements Serializable {
 	public void setDomaine(Domaine domaine) {
 		this.domaine = domaine;
 	}
-	public List<Session> getSession() {
-		return session;
-	}
-	public void setSession(List<Session> session) {
-		this.session = session;
-	}
+
+	/*
+	 * public List<Session> getSession() { return session; } public void
+	 * setSession(List<Session> session) { this.session = session; }
+	 */
 	@Override
 	public String toString() {
 		return "Formation [id=" + id + ", titre=" + titre + ", type=" + type + ", annee=" + annee + ", nb_session="
-				+ nb_session + ", duree=" + duree + ", budget=" + budget + ", domaine=" + domaine + ", session="
-				+ session + "]";
+				+ nb_session + ", duree=" + duree + ", budget=" + budget + ", domaine=" + domaine + "]";
 	}
 	  
 	
