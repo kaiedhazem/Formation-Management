@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
@@ -37,10 +38,9 @@ public class Formateur implements Serializable {
 	@Size(max = 50)
 	@Email
 	private String email;
-	@Size(max = 50)
 	private int tel;
 	@ManyToOne
-	@MapsId("organismeId")
+	@JoinColumn(name = "organismeId", nullable = false)
 	private Organisme organisme;
 	  @OneToMany(mappedBy="formateur")
 			private List<Session> session ;
@@ -49,7 +49,7 @@ public class Formateur implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	public Formateur(@NotBlank @Size(max = 50) String nom, @Size(max = 50) String prenom, @Size(max = 50) String type,
-			@Size(max = 50) @Email String email, @Size(max = 50) int tel) {
+			@Size(max = 50) @Email String email,  int tel) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -99,16 +99,15 @@ public class Formateur implements Serializable {
 	public void setOrganisme(Organisme organisme) {
 		this.organisme = organisme;
 	}
-	public List<Session> getSession() {
-		return session;
-	}
-	public void setSession(List<Session> session) {
-		this.session = session;
-	}
+
+	/*
+	 * public List<Session> getSession() { return session; } public void
+	 * setSession(List<Session> session) { this.session = session; }
+	 */
 	@Override
 	public String toString() {
 		return "Formateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", type=" + type + ", email=" + email
-				+ ", tel=" + tel + ", organisme=" + organisme + ", session=" + session + "]";
+				+ ", tel=" + tel + ", organisme=" + organisme + "]";
 	}
 	  
 	  

@@ -3,17 +3,6 @@ package com.formation.FormationsManagement.Entities;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -40,21 +29,17 @@ public class Participant implements Serializable {
 	@Size(max = 50)
 	@Email
 	private String email;
-	@Size(max = 50)
 	private int tel;
 	@ManyToOne
-	@MapsId("organismeId")
+	@JoinColumn(name = "organismeId", nullable = false)
 	private Organisme organisme;
 	@ManyToOne
-	@MapsId("paysId")
+	@JoinColumn(name = "paysId", nullable = false)
 	private Pays pays;
 	@ManyToOne
-	@MapsId("profilId")
+	 @JoinColumn(name = "profilId", nullable = false)
 	private Profil profil;
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "participant_session", 
-				joinColumns = @JoinColumn(name = "participant_id"), 
-				inverseJoinColumns = @JoinColumn(name = "session_id"))
+	@ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY)
 	private Set<Session> sessions;
 	public Participant() {
 		super();
@@ -62,7 +47,7 @@ public class Participant implements Serializable {
 	}
 	
 	public Participant(@NotBlank @Size(max = 50) String nom, @Size(max = 50) String prenom, @Size(max = 50) String type,
-			@Size(max = 50) @Email String email, @Size(max = 50) int tel) {
+			@Size(max = 50) @Email String email, int tel) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -73,7 +58,7 @@ public class Participant implements Serializable {
 	
 
 	public Participant(@NotBlank @Size(max = 50) String nom, @Size(max = 50) String prenom, @Size(max = 50) String type,
-			@Size(max = 50) @Email String email, @Size(max = 50) int tel, Organisme organisme) {
+			@Size(max = 50) @Email String email,  int tel, Organisme organisme) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -139,21 +124,18 @@ public class Participant implements Serializable {
 		this.profil = profil;
 	}
 	
-	public Set<Session> getSessions() {
-		return sessions;
-	}
-
-	public void setSessions(Set<Session> sessions) {
-		this.sessions = sessions;
-	}
+	/*
+	 * public Set<Session> getSessions() { return sessions; }
+	 * 
+	 * public void setSessions(Set<Session> sessions) { this.sessions = sessions; }
+	 */
 
 	@Override
 	public String toString() {
 		return "Participant [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", type=" + type + ", email=" + email
-				+ ", tel=" + tel + ", organisme=" + organisme + ", pays=" + pays + ", profil=" + profil + ", sessions="
-				+ sessions + "]";
+				+ ", tel=" + tel + ", organisme=" + organisme + ", pays=" + pays + ", profil=" + profil + "]";
 	}
-
+	 
 	
 	
 	

@@ -1,12 +1,16 @@
 package com.formation.FormationsManagement.Entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -27,30 +31,38 @@ public class Session implements Serializable {
 	private String date_debut;
 	@Size(max = 50)
 	private String date_fin;
-	@Size(max = 50)
 	private int nb_participant;
 	@ManyToOne
-	@MapsId("organismeId")
+	 @JoinColumn(name = "organismeId", nullable = false)
 	private Organisme organisme;
 	@ManyToOne
-	@MapsId("formationId")
+	 @JoinColumn(name = "formationId", nullable = false)
 	private Formation formation;
 	@ManyToOne
-	@MapsId("formateurId")
+	 @JoinColumn(name = "formateurId", nullable = false)
 	private Formateur formateur;
-	@ManyToMany(mappedBy = "sessions")
-	Set<Participant> participants;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "participant_session", 
+	joinColumns = @JoinColumn(name = "session_id"), 
+	inverseJoinColumns = @JoinColumn(name = "participant_id"))
+	private Set<Participant> participants = new HashSet<>();
 	public Session() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public Session(@NotBlank @Size(max = 50) String lieu, @Size(max = 50) String date_debut,
-			@Size(max = 50) String date_fin, @Size(max = 50) int nb_participant) {
+			@Size(max = 50) String date_fin, int nb_participant, Organisme organisme, Formation formation,
+			Formateur formateur) {
 		super();
 		this.lieu = lieu;
 		this.date_debut = date_debut;
 		this.date_fin = date_fin;
 		this.nb_participant = nb_participant;
+		this.organisme = organisme;
+		this.formation = formation;
+		this.formateur = formateur;
+		
 	}
 	public Long getId() {
 		return id;

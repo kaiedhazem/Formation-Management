@@ -45,30 +45,22 @@ public class Organisme implements Serializable {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	public List<Participant> getParticipants() {
-		return participants;
-	}
-	public void setParticipants(List<Participant> participants) {
-		this.participants = participants;
-	}
-	
-	public List<Formateur> getFormateurs() {
-		return formateurs;
-	}
-	public void setFormateurs(List<Formateur> formateurs) {
-		this.formateurs = formateurs;
-	}
-	
-	public List<Session> getSession() {
-		return session;
-	}
-	public void setSession(List<Session> session) {
-		this.session = session;
-	}
+	/*
+	 * public List<Participant> getParticipants() { return participants; } public
+	 * void setParticipants(List<Participant> participants) { this.participants =
+	 * participants; }
+	 */
+	/*
+	 * public List<Formateur> getFormateurs() { return formateurs; } public void
+	 * setFormateurs(List<Formateur> formateurs) { this.formateurs = formateurs; }
+	 */
+	/*
+	 * public List<Session> getSession() { return session; } public void
+	 * setSession(List<Session> session) { this.session = session; }
+	 */
 	@Override
 	public String toString() {
-		return "Organisme [id=" + id + ", libelle=" + libelle + ", participants=" + participants + ", formateurs="
-				+ formateurs + ", session=" + session + "]";
+		return "Organisme [id=" + id + ", libelle=" + libelle +  "]";
 	}
 	
 	

@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -27,7 +30,7 @@ public class Domaine implements Serializable {
 	@Size(max = 50)
 	private String libelle;
 	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@OneToMany(mappedBy="domaine")
+	@OneToMany(mappedBy="domaine",orphanRemoval=true)
 	private List<Formation> formations ;
 	public Domaine() {
 		super();

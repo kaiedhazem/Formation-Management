@@ -42,15 +42,10 @@ public class Pays implements Serializable {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public List<Participant> getParticipants() {
-		return participants;
-	}
-	public void setParticipants(List<Participant> participants) {
-		this.participants = participants;
-	}
+
 	@Override
 	public String toString() {
-		return "Pays [id=" + id + ", nom=" + nom + ", participants=" + participants + "]";
+		return "Pays [id=" + id + ", nom=" + nom +"]";
 	}
 	
 }

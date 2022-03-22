@@ -42,15 +42,10 @@ public class Profil implements Serializable {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	public List<Participant> getParticipants() {
-		return participants;
-	}
-	public void setParticipants(List<Participant> participants) {
-		this.participants = participants;
-	}
+	
 	@Override
 	public String toString() {
-		return "Profil [id=" + id + ", libelle=" + libelle + ", participants=" + participants + "]";
+		return "Profil [id=" + id + ", libelle=" + libelle  + "]";
 	}
 	
 }
