@@ -3,6 +3,7 @@ package com.formation.FormationsManagement.Entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Pays implements Serializable {
 	@NotBlank
 	@Size(max = 50)
 	private String nom;
-	@OneToMany(mappedBy="pays")
+	@OneToMany(mappedBy="pays", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Participant> participants ;
 	public Pays() {
 		super();

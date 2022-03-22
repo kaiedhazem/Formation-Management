@@ -3,6 +3,7 @@ package com.formation.FormationsManagement.Entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,11 +20,11 @@ public class Organisme implements Serializable {
 	@NotBlank
 	@Size(max = 50)
 	private String libelle;
-	  @OneToMany(mappedBy="organisme")
+	  @OneToMany(mappedBy="organisme", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 		private List<Participant> participants ;
-	  @OneToMany(mappedBy="organisme")
+	  @OneToMany(mappedBy="organisme", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 		private List<Formateur> formateurs ;
-	  @OneToMany(mappedBy="organisme")
+	  @OneToMany(mappedBy="organisme", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 		private List<Session> session ;
 	public Organisme() {
 		super();

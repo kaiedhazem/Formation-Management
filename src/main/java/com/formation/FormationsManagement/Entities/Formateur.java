@@ -3,6 +3,7 @@ package com.formation.FormationsManagement.Entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,7 +43,7 @@ public class Formateur implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "organismeId", nullable = false)
 	private Organisme organisme;
-	  @OneToMany(mappedBy="formateur")
+	  @OneToMany(mappedBy="formateur", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 			private List<Session> session ;
 	public Formateur() {
 		super();

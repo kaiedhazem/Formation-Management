@@ -30,7 +30,7 @@ public class Domaine implements Serializable {
 	@Size(max = 50)
 	private String libelle;
 	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@OneToMany(mappedBy="domaine",orphanRemoval=true)
+	@OneToMany(mappedBy="domaine", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Formation> formations ;
 	public Domaine() {
 		super();

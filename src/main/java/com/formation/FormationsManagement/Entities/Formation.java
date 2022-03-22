@@ -45,7 +45,7 @@ public class Formation implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "domaineId", nullable = false)
 	private Domaine domaine;
-	 @OneToMany(mappedBy="formation")
+	 @OneToMany(mappedBy="formation", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Session> session ;
 	public Formation() {
 		super();
