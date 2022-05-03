@@ -36,6 +36,7 @@ public class UserService implements IUserService {
             return new MessageResponse("Echec ! Cet user existe déja !");
 
         }
+        if (user.getPassword() != null) {
         user.setPassword(encoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -44,6 +45,17 @@ public class UserService implements IUserService {
 		user.setRoles(roles);
         userRepo.save(user);
         return new MessageResponse("Succès Opération réalisée avec succès.");
+        }else {
+        	User u = findByCode(user.getCode());
+        	   user.setPassword(u.getPassword());
+               Set<Role> roles = new HashSet<>();
+               Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+       				.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+       		roles.add(userRole);
+       		user.setRoles(roles);
+               userRepo.save(user);
+               return new MessageResponse("Succès Opération réalisée avec succès.");
+        }
 	}
 
 	@Override

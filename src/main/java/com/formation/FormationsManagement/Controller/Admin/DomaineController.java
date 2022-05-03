@@ -23,7 +23,7 @@ public class DomaineController {
 	private DomaineService domaineService;
 	
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<Domaine> findAll() {
         return domaineService.findAll();
     }

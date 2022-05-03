@@ -25,7 +25,7 @@ public class FormateurController {
 	@Autowired
 	private FormateurService formateurService;
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<Formateur> findAll() {
         return formateurService.findAll();
     }

@@ -26,7 +26,7 @@ public class FormationController {
 	@Autowired
 	private FormationService formationService;
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<Formation> findAll() {
         return formationService.findAll();
     }

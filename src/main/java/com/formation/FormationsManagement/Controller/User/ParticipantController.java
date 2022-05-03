@@ -25,7 +25,7 @@ public class ParticipantController {
 	@Autowired
 	private ParticipantService participantService;
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<Participant> findAll() {
         return participantService.findAll();
     }

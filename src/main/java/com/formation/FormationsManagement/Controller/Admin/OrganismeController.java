@@ -16,7 +16,7 @@ public class OrganismeController {
 	private OrganismeService organismeService;
 	
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<Organisme> findAll() {
         return organismeService.findAll();
     }

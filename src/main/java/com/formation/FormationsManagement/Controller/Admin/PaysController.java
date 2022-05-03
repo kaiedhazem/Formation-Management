@@ -26,7 +26,7 @@ public class PaysController {
 	@Autowired
 	private PaysService paysService;
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<Pays> findAll() {
         return paysService.findAll();
     }

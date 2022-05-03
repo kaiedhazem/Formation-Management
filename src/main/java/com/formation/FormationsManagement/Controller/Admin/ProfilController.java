@@ -26,7 +26,7 @@ public class ProfilController {
 	private ProfileService profilService;
 	
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<Profil> findAll() {
         return profilService.findAll();
     }

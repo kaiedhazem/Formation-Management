@@ -27,7 +27,7 @@ public class SessionController {
 	@Autowired
 	private SessionService sessionservice;
 	@GetMapping("/all")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public List<Session> findAll() {
         return sessionservice.findAll();
     }
