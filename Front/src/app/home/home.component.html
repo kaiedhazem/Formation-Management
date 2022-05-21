@@ -1,0 +1,102 @@
+<!--mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false">
+      <mat-toolbar>
+        <img src="../../assets/neoxam.jpg" style="width: 95%;" routerLink="/home/dashboard"-->
+        <!--h4>Gestion de  <br> formations</h4>
+      </mat-toolbar>
+      <hr>
+      <mat-nav-list>
+        
+        <a mat-list-item routerLink="/home" >Home</a>
+        <a mat-list-item routerLink="/home/users" >Utilisateurs</a>
+        <a mat-list-item routerLink="/home/domaines" >Domaine</a>
+        <a mat-list-item routerLink="/home/mytemplate" >Formateur</a>
+        <a mat-list-item routerLink="/home/new" >Formation</a>
+        <a mat-list-item routerLink="/home/all" >Organisme</a>
+        <a mat-list-item routerLink="/home/manageusers" >Participant</a>
+        <a mat-list-item routerLink="/home/kpi">Pays</a>
+        <a mat-list-item routerLink="/home/details" >Sessions</a>
+        
+        
+  
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content style="position: static;">
+      <mat-toolbar color="primary">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <div class="d-flex">
+        <button id="logout" (click)="logout()">
+          <span class="material-icons">
+            exit_to_app
+            </span> Deconnexion
+          </button>
+        </div>
+        
+        <<button id="logout"  (click)="logout()">Logout</button>-->
+      <!--/mat-toolbar>
+    
+      
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container-->
+  
+  
+  <mat-toolbar color="primary">
+    <!--button mat-icon-button class="example-icon" (click)="drawer.toggle()" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button-->
+
+    <img src="../../assets/Gestion.png" style="width: 10%; height: 85%; border-radius: 10px;" (click)="drawer.toggle()">
+    <span class="example-spacer"></span>
+    
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="logout()">
+      <mat-icon>vpn_key</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <mat-nav-list >
+        <a class="liste" mat-list-item routerLink="/home/dashboard" ><mat-icon>home</mat-icon>  Home</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_ADMIN'" mat-list-item routerLink="/home/user" > <mat-icon>account_box</mat-icon>  Utilisateurs</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_ADMIN'" mat-list-item routerLink="/home/domaine" ><mat-icon>stars</mat-icon> Domaine</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_USER'" mat-list-item routerLink="/home/formateur" ><mat-icon>perm_contact_calendar</mat-icon> Formateur</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_USER'" mat-list-item routerLink="/home/formation" ><mat-icon>book</mat-icon>  Formation</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_ADMIN'" mat-list-item routerLink="/home/organisme" ><mat-icon>account_balance</mat-icon>  Organisme</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_USER'" mat-list-item routerLink="/home/participant" ><mat-icon>supervisor_account</mat-icon>  Participant</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_ADMIN'" mat-list-item routerLink="/home/pays"><mat-icon>language</mat-icon> Pays</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_USER'" mat-list-item routerLink="/home/session" > <mat-icon>date_range</mat-icon>  Sessions</a>
+        <a class="liste" *ngIf="this.role == 'ROLE_ADMIN'" mat-list-item routerLink="/home/profil" ><mat-icon>work</mat-icon> Profil</a>
+      </mat-nav-list>
+    </mat-drawer>
+  
+  <!--div class="container" style="margin-top: 2%;">
+    <mat-grid-list cols="4" rowHeight="100px">
+      <mat-grid-tile
+          *ngFor="let tile of tiles"
+          [colspan]="tile.cols"
+          [rowspan]="tile.rows"
+          [style.background]="tile.color">
+        {{tile.text}}
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div-->
+
+    <div >
+        <router-outlet></router-outlet>
+    </div>
+  
+  </mat-drawer-container>
+
+
+  

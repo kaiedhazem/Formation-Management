@@ -1,0 +1,220 @@
+<div class="container">
+    <h2>Gestion de formations</h2>
+    <mat-form-field appearance="outline" class="filter">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+    <button mat-raised-button class="add-btn" aria-label="Example icon-button with share icon" (click)="openDialog(mymodalajout,null)">
+      Ajouter <mat-icon>library_add</mat-icon>
+    </button>
+    
+    
+  
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- Position Column -->
+      <!--ng-container matColumnDef="ID">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container-->
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="Titre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Titre </th>
+        <td mat-cell *matCellDef="let element"> {{element.titre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Domaine">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Domaine </th>
+        <td mat-cell *matCellDef="let element"> {{element.domaine.libelle}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Durée">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Durée </th>
+        <td mat-cell *matCellDef="let element"> {{element.duree}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Année">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Année </th>
+        <td mat-cell *matCellDef="let element"> {{element.annee}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nb de sessions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nb de sessions </th>
+        <td mat-cell *matCellDef="let element"> {{element.nb_session}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Budget">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Budget </th>
+        <td mat-cell *matCellDef="let element"> {{element.budget}} </td>
+      </ng-container>
+     
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="openDialog(mymodalmodifier, element)" > <mat-icon>edit</mat-icon> </button>  
+          <button mat-icon-button color="warn" (click)="openSuppDialog(mymodalsupprimer,element.id)"> <mat-icon>delete</mat-icon> </button>  
+        </td>
+      </ng-container>
+  
+      <tr style="background-color: rgb(233, 231, 231);" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="tr" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Pas de données avec le nom "{{input.value}}"</td>
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons 
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+  
+  
+     
+  <!-------------------------- modal -------------------------------------------------------------------------->
+  <ng-template #mymodalajout>
+  <div>
+    <h2 mat-dialog-title>Ajouter formation</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="ajoutForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Titre</mat-label>
+          <input formControlName="titre" matInput placeholder="Abc" minlength="3">
+          <mat-icon matSuffix>edit</mat-icon>
+          <mat-hint>Min 3 caracteres</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Année</mat-label>
+          <input formControlName="annee" matInput placeholder="1999" minlength="4" maxlength="4" type="number">
+          <mat-icon matSuffix>edit</mat-icon>
+          <mat-hint>Min 10 caracteres</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Durée</mat-label>
+          <input formControlName="duree" matInput placeholder="123" maxlength="3" type="number">
+          <mat-icon matSuffix>edit</mat-icon>
+          <mat-hint>Min 3 chiffres</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre de sessions</mat-label>
+            <input formControlName="nb_session" matInput placeholder="123" maxlength="3" type="number">
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Min 3 chiffres</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Budget</mat-label>
+            <input formControlName="budget" matInput placeholder="123" minlength="2" type="number">
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Min 2 chiffres</mat-hint>
+          </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Domaine</mat-label>
+          <mat-select formControlName="domaine" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let domaine of domaines" [value]="domaine">
+             {{domaine.libelle}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+          <label id="example-radio-group-label">Type de la formation</label>
+          <mat-radio-group color="primary" formControlName="type" class="example-radio-group" required>
+              <mat-radio-button class="example-radio-button" value="interne">
+                Interne
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="externe">
+                Externe
+            </mat-radio-button>
+          </mat-radio-group>
+    </form>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="warn" mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="primary" (click)="ajouter()" cdkFocusInitial>Creer</button>
+    </mat-dialog-actions>
+  </div>
+  </ng-template>
+  
+  <ng-template #mymodalmodifier>
+  <div>
+    <h2 mat-dialog-title>Modifier formation</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="modifierForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Titre</mat-label>
+            <input formControlName="titre" matInput placeholder="Abc" minlength="3">
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Min 3 caracteres</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Année</mat-label>
+            <input formControlName="annee" matInput placeholder="1999" minlength="4" maxlength="4" type="number">
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Min 10 caracteres</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Durée</mat-label>
+            <input formControlName="duree" matInput placeholder="123" maxlength="3" type="number">
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Min 3 chiffres</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+              <mat-label>Nombre de sessions</mat-label>
+              <input formControlName="nb_session" matInput placeholder="123" maxlength="3" type="number">
+              <mat-icon matSuffix>edit</mat-icon>
+              <mat-hint>Min 3 chiffres</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Budget</mat-label>
+              <input formControlName="budget" matInput placeholder="123" minlength="2" type="number">
+              <mat-icon matSuffix>edit</mat-icon>
+              <mat-hint>Min 2 chiffres</mat-hint>
+            </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Domaine</mat-label>
+            <mat-select formControlName="domaine" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let domaine of domaines" [value]="domaine">
+               {{domaine.libelle}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+            <label id="example-radio-group-label">Type de la formation</label>
+            <mat-radio-group color="primary" formControlName="type" class="example-radio-group" required>
+                <mat-radio-button class="example-radio-button" value="interne">
+                  Interne
+                </mat-radio-button>
+                <mat-radio-button class="example-radio-button" value="externe">
+                  Externe
+              </mat-radio-button>
+            </mat-radio-group>
+    </form>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="warn" mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="primary" (click)="modifier()" cdkFocusInitial>Modifier</button>
+    </mat-dialog-actions>
+  </div>
+  </ng-template>
+  
+  <ng-template #mymodalsupprimer>
+  <div>
+    <h2 mat-dialog-title>Supprimer formation</h2>
+    <mat-dialog-content class="mat-typography">
+      <h3>Vous voulez vraiment supprimer ce formation?</h3>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="primary" mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="warn" (click)="supprimer()" cdkFocusInitial>Supprimer</button>
+    </mat-dialog-actions>
+  </div>
+  </ng-template>

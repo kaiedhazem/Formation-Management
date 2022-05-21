@@ -1,0 +1,84 @@
+<div *ngIf="participantTypes && FormateursTypes" class="grid-container">
+  <mat-grid-list cols="3" rowHeight="300px">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <!--mat-card-title>
+            {{card.title}}
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title-->
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div >
+            <canvas baseChart 
+                    [data]="typeData" 
+                    [type]="'pie'"
+                    [options]="chartOptionsType">
+      </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <!--mat-card-title>
+            {{card.title}}
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title-->
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div >
+            <canvas baseChart 
+                    [data]="participantData" 
+                    [type]="'doughnut'"
+                    [options]="chartOptions">
+      </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-content class="dashboard-card-content">
+          <div class="text">
+            
+            <div *ngIf="pays"><span>{{pays.length}}</span> Pays </div> <br>
+            <div *ngIf="participants"><span>{{participants.length}}</span> Participants</div> <br>
+            <div *ngIf="formations"><span>{{formations.length}}</span> Formations</div> <br>
+            <div *ngIf="formateurs"><span>{{formateurs.length}}</span> Formateurs</div> <br>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-content class="dashboard-card-content">
+          <div >
+            <canvas baseChart 
+                    [data]="sessionData" 
+                    [type]="'bar'"
+                    [options]="chartOptionsType1">
+      </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

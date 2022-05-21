@@ -1,0 +1,44 @@
+  mat-form-field {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+
+  .tr:hover {
+    background: whitesmoke;
+  }
+
+  .container{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 2%;
+  }
+
+  .add-btn {
+    float: right;
+    background-color: rgb(24, 128, 24);
+    color: blanchedalmond;
+    margin: 1%;
+    width: 18%;
+  }
+
+  .filter {
+    width: 80%;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: x-large;
+
+  }

@@ -1,0 +1,61 @@
+mat-form-field {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 10%;
+  }
+
+  .tr:hover {
+    background: whitesmoke;
+  }
+
+  .container{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2%;
+  }
+
+  .add-btn {
+    float: right;
+    background-color: rgb(24, 128, 24);
+    color: blanchedalmond;
+    margin: 1%;
+    width: 18%;
+  }
+
+  .filter {
+    width: 80%;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: x-large;
+
+  }
+
+  .example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+  
+  .example-radio-button {
+    margin: 5px;
+  }
+
+  .example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+

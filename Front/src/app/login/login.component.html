@@ -1,0 +1,26 @@
+<body>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <div class="over">
+    <div class="wrapper">
+      
+      <div id="formContent">
+        <img class="image fadeInDown" src="../../assets/Gestion.png">
+    
+        
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
+          <input type="text" id="username" class="fadeIn second" required placeholder="username" name="username" [(ngModel)]="credentials.username"/>
+          <input type="password" id="password" class="fadeIn third" required placeholder="mot de passe" name="password" [(ngModel)]="credentials.password"/>
+          <!--<input type="button" class="fadeIn fourth" value="Log In" (click)="login(user,pass)"/>-->
+          <button class="fadeIn fourth">Se connecter</button>
+          <p style="color: red;"> {{ errorMessage }} </p>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+    </body>
+  
+    

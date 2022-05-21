@@ -1,0 +1,276 @@
+<div class="container">
+    <h2>Gestion de sessions</h2>
+    <mat-form-field appearance="outline" class="filter">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+    <button mat-raised-button class="add-btn" aria-label="Example icon-button with share icon" (click)="openDialog(mymodalajout,null)">
+      Ajouter <mat-icon>library_add</mat-icon>
+    </button>
+    
+    
+  
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- Position Column -->
+      <!--ng-container matColumnDef="ID">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container-->
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="Date debut">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date debut </th>
+        <td mat-cell *matCellDef="let element"> {{element.date_debut}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Date fin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date fin </th>
+        <td mat-cell *matCellDef="let element"> {{element.date_fin}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Formateur">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Formateur </th>
+        <td mat-cell *matCellDef="let element"> {{element.formateur.nom}} {{element.formateur.prenom}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Formation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Formation </th>
+        <td mat-cell *matCellDef="let element"> {{element.formation.titre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Lieu">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Lieu </th>
+        <td mat-cell *matCellDef="let element"> {{element.lieu}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nb de participants">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nb de sessions </th>
+        <td mat-cell *matCellDef="let element"> {{element.nb_participant}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Organisme">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Organisme </th>
+        <td mat-cell *matCellDef="let element"> {{element.organisme.libelle}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Participants">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Participants </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="openAffichDialog(mymodalafficher,element.participants )"><mat-icon>launch</mat-icon></button>
+        </td>
+      </ng-container>
+     
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="openDialog(mymodalmodifier, element)" > <mat-icon>edit</mat-icon> </button>  
+          <button mat-icon-button color="warn" (click)="openSuppDialog(mymodalsupprimer,element.id)"> <mat-icon>delete</mat-icon> </button>  
+        </td>
+      </ng-container>
+  
+      <tr style="background-color: rgb(233, 231, 231);" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="tr" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Pas de données avec le nom "{{input.value}}"</td>
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons 
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+  
+  
+     
+  <!-------------------------- modal -------------------------------------------------------------------------->
+  <ng-template #mymodalajout>
+  <div>
+    <h2 mat-dialog-title>Ajouter session</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="ajoutForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Date debut</mat-label>
+          <input formControlName="date_debut" matInput placeholder="xx/xx/xxxx" type="date">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date fin</mat-label>
+          <input formControlName="date_fin" matInput placeholder="xx/xx/xxxx" type="date">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Lieu</mat-label>
+            <input formControlName="lieu" matInput placeholder="Ariana" minlength="3" >
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Lieu: xxxx</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Nb de participants</mat-label>
+            <input formControlName="nb_participant" matInput placeholder="123" maxlength="3" type="number">
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Max 3 chiffres</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Formateur</mat-label>
+            <mat-select formControlName="formateur" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let formateur of formateurs" [value]="formateur">
+               {{formateur.nom}} {{formateur.prenom}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Formation</mat-label>
+            <mat-select formControlName="formation" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let formation of formations" [value]="formation">
+               {{formation.titre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Organisme</mat-label>
+          <mat-select formControlName="organisme" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let organisme of organismes" [value]="organisme">
+             {{organisme.libelle}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Participants</mat-label>
+            <mat-select formControlName="participants" multiple>
+              <mat-option *ngFor="let topping of allParticipants" [value]="topping">{{topping.nom}} {{topping.prenom}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </form>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="warn" mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="primary" (click)="ajouter()" cdkFocusInitial>Creer</button>
+    </mat-dialog-actions>
+  </div>
+  </ng-template>
+  
+  <ng-template #mymodalmodifier>
+  <div>
+    <h2 mat-dialog-title>Modifier session</h2>
+    <mat-dialog-content class="mat-typography">
+      <form [formGroup]="modifierForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Date debut</mat-label>
+          <input formControlName="date_debut" matInput placeholder="xx/xx/xxxx" type="date">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date fin</mat-label>
+          <input formControlName="date_fin" matInput placeholder="xx/xx/xxxx" type="date">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Lieu</mat-label>
+            <input formControlName="lieu" matInput placeholder="Ariana" minlength="3" >
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Lieu: xxxx</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Nb de participants</mat-label>
+            <input formControlName="nb_participant" matInput placeholder="123" maxlength="3" type="number">
+            <mat-icon matSuffix>edit</mat-icon>
+            <mat-hint>Max 3 chiffres</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Formateur</mat-label>
+            <mat-select formControlName="formateur" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let formateur of formateurs" [value]="formateur">
+               {{formateur.nom}} {{formateur.prenom}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Formation</mat-label>
+            <mat-select formControlName="formation" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let formation of formations" [value]="formation">
+               {{formation.titre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Organisme</mat-label>
+          <mat-select formControlName="organisme" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let organisme of organismes" [value]="organisme">
+             {{organisme.libelle}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Participants</mat-label>
+            <mat-select formControlName="participants" multiple>
+              <mat-option *ngFor="let topping of allParticipants" [value]="topping">{{topping.nom}} {{topping.prenom}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </form>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="warn" mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="primary" (click)="modifier()" cdkFocusInitial>Modifier</button>
+    </mat-dialog-actions>
+  </div>
+  </ng-template>
+  
+  <ng-template #mymodalsupprimer>
+  <div>
+    <h2 mat-dialog-title>Supprimer session</h2>
+    <mat-dialog-content class="mat-typography">
+      <h3>Vous voulez vraiment supprimer cette session?</h3>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end">
+      <button mat-raised-button color="primary" mat-dialog-close>Annuler</button>
+      <button mat-raised-button color="warn" (click)="supprimer()" cdkFocusInitial>Supprimer</button>
+    </mat-dialog-actions>
+  </div>
+  </ng-template>
+
+  <ng-template #mymodalafficher>
+    <div>
+      <h2 mat-dialog-title>Les participants de cette session</h2>
+      <mat-dialog-content class="mat-typography">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr style="background-color: rgb(236, 230, 230);">
+                      <th> Nom </th> 
+                      <th> Prenom </th> 
+                      <th> Type </th> 
+                      <th> Email </th>
+                      <th> organisme </th>
+                      <th> profil </th>
+                      <th> pays </th>
+                    </tr>
+                  </thead> 
+    
+                  <tbody>
+                      <tr *ngFor="let user of participants">
+                          <td> {{user.nom}} </td>
+                          <td> {{user.prenom}} </td>
+                          <td> {{user.type}} </td>
+                          <td> {{user.email}} </td>
+                          <td> {{user.organisme.libelle}} </td>
+                          <td> {{user.profil.libelle}} </td>
+                          <td> {{user.pays.nom}} </td>
+                          </tr>
+                  </tbody>
+            </table>
+        </div>
+      </mat-dialog-content>
+    
+      <mat-dialog-actions align="end">
+        <button mat-raised-button color="basic" mat-dialog-close>Fermer</button>
+      </mat-dialog-actions>
+    </div>
+    </ng-template>
